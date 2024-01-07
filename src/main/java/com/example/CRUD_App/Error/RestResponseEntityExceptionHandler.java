@@ -1,0 +1,23 @@
+package com.example.CRUD_App.Error;
+
+import com.example.CRUD_App.Entity.ErrorMsg;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+@ControllerAdvice
+@ResponseStatus
+public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler
+{
+  @ExceptionHandler(CustomerNotFoundException.class)
+  public ResponseEntity<ErrorMsg> customerNotFoundException(CustomerNotFoundException exception, WebRequest request)
+  {
+//    ErrorMsg message= new ErrorMsg(HttpStatus.NOT_FOUND,exception.getMessage());
+    ErrorMsg message= new ErrorMsg();
+    return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+  }
+
+}
